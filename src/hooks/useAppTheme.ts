@@ -3,7 +3,7 @@ import { appTheme } from '../themes/appTheme';
 
 export const useAppTheme = () => {
   const paperTheme = useTheme();
-  
+
   return {
     ...paperTheme,
     ...appTheme,

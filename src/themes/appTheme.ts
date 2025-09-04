@@ -26,7 +26,7 @@ export const appTheme = {
     gray800: '#343A40',
     gray900: '#212529',
   },
-  background:{
+  background: {
     primary: '#1890ff',
     surface: '#F8F9FA',
     surfaceVariant: '#F1F3F5',
@@ -39,7 +39,7 @@ export const appTheme = {
     l: 24,
     xl: 32,
   },
-  
+
   fonts: {
     ...MD3LightTheme.fonts,
     // headlineSmall: { ... }

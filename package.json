@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "start": "react-native start",
     "test": "jest",
-    "format": "prettier --write ."
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "dependencies": {
     "@react-native-vector-icons/material-design-icons": "^12.3.0",
