@@ -8,5 +8,13 @@ module.exports = {
   "plugins": ["@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
-  }
+  },
+  overrides: [
+    {
+      files: ['metro.config.js', '*.config.js', '*.config.cjs'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
+  ],
 };
