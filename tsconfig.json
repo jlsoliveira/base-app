@@ -1,0 +1,29 @@
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@hooks": [
+        "./hooks/index"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@themes": [
+        "./themes/index"
+      ],
+      "@themes/*": [
+        "./themes/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/Pods"
+  ],
+  "skipLibCheck": true
+}
