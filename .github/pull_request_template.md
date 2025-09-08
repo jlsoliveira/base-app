@@ -1,22 +1,35 @@
 ## 📌 What was done?
-- Briefly describe the changes.
+<!-- Clearly and objectively describe the changes in this PR -->
 
+## 🔗 Task Link
+<!-- Add the task link (Jira, Linear, Trello, GitHub Issue, etc.) -->
+[Task #ID](https://)
+
+---
+## 🎯 Motivation
+<!-- Why is this change necessary? What problem/feature does it solve? -->
+
+-
 ## 📷 Evidence
-- Include screenshots, gifs, or videos showing the visual/functional changes.
+<!-- Include images, gifs, or videos that show the changes in action -->
 
-## 🔍 How to test?
-- Step-by-step instructions to reproduce the manual test.
-- Example:
-1. Run `npm start`
-2. Access `http://localhost:3000`
-3. Verify that button X appears with style Y
+-
+## 🔍 How to test? <!-- Step-by-step guide to manual validation -->
+1. 
+2. 
+3. 
 
 ## ✅ Checklist
 - [ ] Code compiles without errors
-- [ ] Tests pass in CI
-- [ ] I didn't break lint/prettier
-- [ ] I reviewed the commit messages
-- [ ] I updated the documentation if necessary
+- [ ] Lint/Prettier passes locally (`npm run lint`)
+- [ ] Tests run and pass (`npm test`)
+- [ ] Commit messages follow Conventional Commits
+- [ ] Documentation/README updated (if applicable)
+- [ ] Changes don't break other parts of the system
+- [ ] PR correctly linked to the task
+- [ ] I have updated the documentation if necessary.
 
 ---
-> ⚠️ Fill in all fields before marking the PR as “Ready for review”.
+
+⚠️ **Important:**
+> Fill in all fields before marking the PR as “Ready for review”.
