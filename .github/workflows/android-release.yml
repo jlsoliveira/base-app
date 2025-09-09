@@ -1,0 +1,72 @@
+name: Android Release (APK signed)
+
+on:
+  workflow_dispatch:
+  push:
+    tags: [ 'android-v*' ]   # opcional: dispara em tags do tipo android-v1.0.0
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps (npm ci)
+        run: npm ci
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      # ⚠️ TODO (quando for publicar):
+      # 1) Criar keystore localmente (keytool), converter para base64 e salvar em secrets:
+      #    ANDROID_KEYSTORE_B64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+      # 2) Ajustar signingConfigs no android/app/build.gradle para ler as variáveis de ambiente.
+
+      # - name: Decode keystore (TODO: habilitar quando secrets existirem)
+      #   if: ${{ secrets.ANDROID_KEYSTORE_B64 != '' }}
+      #   run: echo "$ANDROID_KEYSTORE_B64" | base64 -d > android/release.keystore
+      #   env:
+      #     ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+
+      - name: Build Release APK
+        working-directory: android
+        env:
+          ANDROID_KEYSTORE_PATH: release.keystore
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxMetaspaceSize=512m"
+        run: ./gradlew clean assembleRelease --no-daemon
+
+      - name: Upload artifact (APK release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: android/app/build/outputs/apk/release/*.apk
+          retention-days: 14
